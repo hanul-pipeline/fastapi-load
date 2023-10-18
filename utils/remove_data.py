@@ -34,25 +34,3 @@ def update_data(data_received:dict, data_DIR:str):
     update_mysql(data_received)
     update_csv(data_received, data_DIR)
     
-
-
-# sensor_dict = {
-#     "날짜": "2023-10-12",
-#     "시간": "12:34:56",
-#     "위치": ("서울", "001"),
-#     "분류": ("온도", "01"),
-#     "데이터": {
-#         "센서": ("DS18B20", "01"),
-#         "측정값": 25.3,
-#         "단위": "°C",
-#         "경과시간(sec)": 60
-#     },
-#     "연결": {
-#         "네트워크명": "MyNetwork",
-#         "신호강도(dB)": -70
-#     }
-# }
-
-# dir = "../data"
-
-# update_data(sensor_dict, dir)
