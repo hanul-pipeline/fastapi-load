@@ -14,3 +14,6 @@ def remove_mysql(date:str):
     conn.commit()
     conn.close()
 
+# date = '2023-10-21'
+
+# remove_mysql(date)
