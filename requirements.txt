@@ -1,6 +1,7 @@
-fastapi
-uvicorn
-mysql.connector-python
 requests
+Cython --install-option="--no-cython-compile"
+mysql-connector-python
 pandas
 pyarrow
+fastapi
+uvicorn

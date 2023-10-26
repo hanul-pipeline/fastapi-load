@@ -1,0 +1,51 @@
+version: "2"
+services:
+   namenode:
+      build:
+        context: .
+        dockerfile: dockerfile
+      hostname: namenode
+      command: ["hdfs", "namenode"]
+      ports:
+        - "9870:9870"
+      env_file:
+        - ./config
+      environment:
+        ENSURE_NAMENODE_DIR: "/tmp/hadoop-root/dfs/name"
+        HADOOP_NAMENODE_OPTS: "-Xmx2g"
+   datanode:
+      image: apache/hadoop:3
+      command: ["hdfs", "datanode"]
+      env_file:
+        - ./config
+      environment:
+        HADOOP_DATANODE_OPTS: "-Xmx20g"
+   resourcemanager:
+      image: apache/hadoop:3
+      hostname: resourcemanager
+      command: ["yarn", "resourcemanager"]
+      ports:
+        - "8088:8088"
+      env_file:
+        - ./config
+      volumes:
+        - ./test.sh:/opt/test.sh
+   nodemanager:
+      image: apache/hadoop:3
+      command: ["yarn", "nodemanager"]
+      env_file:
+        - ./config
+   datanode2:
+      image: apache/hadoop:3
+      command: ["hdfs", "datanode"]
+      env_file:
+        - ./config
+      environment:
+        HADOOP_DATANODE_OPTS: "-Xmx20g"
+   datanode3:
+      image: apache/hadoop:3
+      command: ["hdfs", "datanode"]
+      env_file:
+        - ./config
+      environment:
+        HADOOP_DATANODE_OPTS: "-Xmx20g"

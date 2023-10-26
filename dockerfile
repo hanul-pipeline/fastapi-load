@@ -1,10 +1,16 @@
-FROM python:3.11.5
+FROM apache/hadoop:3
 
-WORKDIR /api
+# Install required packages
+RUN sudo yum install -y python3 python3-pip libmysqlclient-dev
 
-COPY . .
+WORKDIR /app
 
-RUN pip install --no-cache-dir -r requirements.txt
+COPY . /app
 
-CMD python3 main.py
+RUN pip3 install --no-cache-dir -r /app/requirements.txt
 
+EXPOSE 80
+
+# ENV NAME World
+
+CMD ["python3", "/app/main.py"]
