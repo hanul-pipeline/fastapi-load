@@ -1,6 +1,10 @@
-import sys
-sys.path.append('/home/kjh/code/hanul/fastapi-load')
-from lib.modules import *
+import sys, os
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+lib_dir = os.path.join(current_dir, '../lib')
+sys.path.append(lib_dir)
+
+from modules import *
 
 # MYSQL 데이터 삭제
 def remove_mysql(date:str):
