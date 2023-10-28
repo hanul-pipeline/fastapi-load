@@ -5,26 +5,26 @@ services:
       hostname: namenode
       command: ["hdfs", "namenode"]
       ports:
-        - "9870:9870"
+        - 9870:9870
       env_file:
         - ./hadoop_config
       environment:
-        ENSURE_NAMENODE_DIR: "/tmp/hadoop-root/dfs/name"
-        LC_ALL: en_US.UTF-8
-        LANG: C.UTF-8
+          ENSURE_NAMENODE_DIR: "/tmp/hadoop-root/dfs/name"
+      volumes:
+        - ./data:/opt/data
    datanode:
       image: apache/hadoop:3
       command: ["hdfs", "datanode"]
       env_file:
         - ./hadoop_config
       environment:
-        HADOOP_DATANODE_OPTS: "-Xmx20g"
+          HADOOP_DATANODE_OPTS: "-Xmx20g"
    resourcemanager:
       image: apache/hadoop:3
       hostname: resourcemanager
       command: ["yarn", "resourcemanager"]
       ports:
-        - "8088:8088"
+         - 8088:8088
       env_file:
         - ./hadoop_config
       volumes:
@@ -40,11 +40,11 @@ services:
       env_file:
         - ./hadoop_config
       environment:
-        HADOOP_DATANODE_OPTS: "-Xmx20g"
+          HADOOP_DATANODE_OPTS: "-Xmx20g"
    datanode3:
       image: apache/hadoop:3
       command: ["hdfs", "datanode"]
       env_file:
         - ./hadoop_config
       environment:
-        HADOOP_DATANODE_OPTS: "-Xmx20g"
+          HADOOP_DATANODE_OPTS: "-Xmx20g"

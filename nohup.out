@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/home/hooniegit/git/fastapi-load/main.py", line 2, in <module>
+    from routers import update_data_router, remove_data_router, update_parquet_router
+  File "/home/hooniegit/git/fastapi-load/routers/update_parquet_router.py", line 10
+    location_id = 
+                  ^
+SyntaxError: invalid syntax

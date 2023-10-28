@@ -1,12 +1,12 @@
 import configparser
 import mysql.connector
-import sys, os
+import os
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 config_dir = os.path.join(current_dir, '../config/config.ini')
 
 
-# config 값 불러오기
+# read config
 def get_config(group, req_var):
     config = configparser.ConfigParser()
     config.read(config_dir)
@@ -15,7 +15,7 @@ def get_config(group, req_var):
     return result
 
 
-# db 연결하기
+# db connection
 def db_conn(charset=True):
     host = get_config('MySQL', 'host')
     user = get_config('MySQL', 'user')
@@ -40,7 +40,7 @@ def db_conn(charset=True):
     return conn
 
 
-# 딕셔너리 펼치기
+# flatten dictionary
 def flatten_dict(d, parent_key='', sep='_'):
     items = {}
     for k, v in d.items():
@@ -79,11 +79,11 @@ def hdfs_mkdir(parquet_dir):
 
 # parquet_dir = "1/100/22"
 # hdfs_mkdir(parquet_dir)
-def hdfs_input(parquet_dir):
+def hdfs_input(parquet_dir, hdfs_dir):
     import subprocess
 
     passwd = get_config("localhost", "passwd")
-    command = f"hdfs dfs -put /opt/data/parquet/{parquet_dir}   /hanul/measurement/"
+    command = f"hdfs dfs -put /opt/data/parquet/{parquet_dir}   /hanul/measurement/{hdfs_dir}"
     cmd = f'echo {passwd} | sudo -S docker exec fastapi-load-namenode-1 {command}'
 
     process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
