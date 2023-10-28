@@ -40,7 +40,7 @@ def db_conn(charset=True):
     return conn
 
 
-# flatten dictionary
+# confirmed
 def flatten_dict(dictionary, parent_key='', sep='_'):
     items = {}
     
@@ -52,6 +52,21 @@ def flatten_dict(dictionary, parent_key='', sep='_'):
             items[new_key] = v
 
     return items
+
+
+# confirmed
+def return_rows(items):
+    item_list = []
+
+    measurement = items["measurement"]
+    rest = items
+    del rest["measurement"]
+
+    for index in measurement:
+        item = {**rest, **index}
+        item_list.append(item)
+
+    return item_list
 
 
 # parquet_dir = "1/100/22"

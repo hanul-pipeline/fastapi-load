@@ -9,9 +9,8 @@ sys.path.append(lib_dir)
 from modules import *
 
 
-# 
+# confirmed
 def update_mysql(data_received:dict):
-
     # open connector
     conn = db_conn()
     cursor = conn.cursor()
@@ -47,21 +46,43 @@ def update_mysql(data_received:dict):
 
 
 # 
-def update_csv(data_received:dict, data_DIR:str):
+def update_csv(data_received:dict, date):
+    # return dict to rows
     flat_data = flatten_dict(data_received)
+    returned_rows = return_rows(flat_data)
     
-    with open(f'{data_dir}/{data_DIR}/measurements.csv', mode='a', newline='', encoding='utf-8-sig') as file:
+    print(returned_rows)
+
+    # 
+    with open(f'{data_dir}/csv/{date}/measurements.csv', mode='a', newline='', encoding='utf-8-sig') as file:
         writer = csv.writer(file)
         
-        if file.tell() == 0:
-            header = list(flat_data.keys())
-            writer.writerow(header)
-            
-        data_row = list(flat_data.values())
-        writer.writerow(data_row)
+        for row in returned_rows:
+            if file.tell() == 0:
+                header = list(row.keys())
+                writer.writerow(header)
+                
+            data_row = list(row.values())
+            writer.writerow(data_row)
 
 
-# 업데이트 실행
-def update_data(data_received:dict, data_DIR:str):
+# 
+def update_data(data_received:dict, date:str):
     update_mysql(data_received)
-    update_csv(data_received, data_DIR)
+    update_csv(data_received, date)
+
+
+# TEST
+if __name__ == "__main__":
+
+    data_received = {
+        'date': '2023-10-28', 
+        'time': '16:15:31', 
+        'location': {'id': 7, 'name': '도장공정'}, 
+        'sensor': {'id': 500, 'name': 'DHT-21', 'type': '온습도 센서'}, 
+        'measurement': [{'value_type': 'temperature', 'value': 32, 'unit': '°C', 'cnt': 1, 'percentage': 0}, {'value_type': 'moisture', 'value': 52, 'unit': '%', 'cnt': 1, 'percentage': 0}], 
+        'network': {'name': "can't find", 'dB': 0}}
+
+    # update_mysql(data_received)
+    # update_csv(data_received, "2023-10-28")
+    update_data(data_received, "2023-10-28")
