@@ -41,20 +41,16 @@ def db_conn(charset=True):
 
 
 # flatten dictionary
-def flatten_dict(d, parent_key='', sep='_'):
+def flatten_dict(dictionary, parent_key='', sep='_'):
     items = {}
-    for k, v in d.items():
-        if k in ['데이터', '연결']:  # 이러한 키를 무시하고 그 아래의 항목만 처리
-            items.update(flatten_dict(v, parent_key, sep=sep))
+    
+    for k, v in dictionary.items():
+        new_key = parent_key + sep + k if parent_key else k
+        if isinstance(v, dict):
+            items.update(flatten_dict(v, new_key, sep=sep))
         else:
-            new_key = parent_key + sep + k if parent_key else k
-            if isinstance(v, dict):
-                items.update(flatten_dict(v, new_key, sep=sep))
-            elif isinstance(v, tuple) and len(v) == 2:
-                items[new_key + '명'] = v[0]
-                items[new_key + 'ID'] = v[1]
-            else:
-                items[new_key] = v
+            items[new_key] = v
+
     return items
 
 
