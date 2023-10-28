@@ -6,18 +6,21 @@ sys.path.append(lib_dir)
 
 from modules import *
 
-# MYSQL 데이터 삭제
+
+# confirmed
 def remove_mysql(date:str):
     conn = db_conn()
     cursor = conn.cursor()
     
-    query = "DELETE FROM measurements WHERE `날짜` = %s"
+    query = "DELETE FROM measurement WHERE date = %s"
     val = (date,)
     
     cursor.execute(query,val)
     conn.commit()
     conn.close()
 
-# date = '2023-10-21'
 
-# remove_mysql(date)
+# TEST
+if __name__ == "__main__":
+    date = '2023-10-28'
+    remove_mysql(date)

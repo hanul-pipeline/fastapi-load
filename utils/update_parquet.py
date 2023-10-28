@@ -8,7 +8,7 @@ sys.path.append(lib_dir)
 from modules import *
 
 
-# parquet: mysql to local
+# confirmed
 def update_parquet_local(location_id:int, sensor_id:int, date:str, time:int):
     import pandas as pd
     
@@ -36,7 +36,7 @@ def update_parquet_local(location_id:int, sensor_id:int, date:str, time:int):
     df.to_parquet(DIR, engine='pyarrow', index=False, partition_cols=['location_id', 'sensor_id', 'date', 'hour'])
 
 
-# parquet: local to hdfs
+# confirmed
 def update_parquet_hdfs(location_id, sensor_id, date, hour:int):
     parquet_dir = f"location_id={location_id}/sensor_id={sensor_id}/date={date}/hour={hour}"
     hdfs_dir = f"location_id={location_id}/sensor_id={sensor_id}/date={date}"
@@ -46,7 +46,5 @@ def update_parquet_hdfs(location_id, sensor_id, date, hour:int):
 
 # test
 if __name__ == "__main__":
-    # confirmed
     update_parquet_local(1, 100, '2023-10-26', 11)
-    # confirmed
     update_parquet_hdfs(1, 100, '2023-10-26', 11)

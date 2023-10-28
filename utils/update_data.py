@@ -45,16 +45,25 @@ def update_mysql(data_received:dict):
     conn.close()
 
 
-# 
-def update_csv(data_received:dict, date):
+# confirmed
+def update_csv(data_received:dict, date, location_id):
+    folder_dir = f"{data_dir}/csv/location_id={location_id}/date={date}"
+    try:
+        os.makedirs(folder_dir)
+    except FileExistsError:
+        print("Folder Exists")
+
+    # def file dir
+    file_dir = f"{folder_dir}/measurements.csv"
+
     # return dict to rows
     flat_data = flatten_dict(data_received)
     returned_rows = return_rows(flat_data)
     
     print(returned_rows)
 
-    # 
-    with open(f'{data_dir}/csv/{date}/measurements.csv', mode='a', newline='', encoding='utf-8-sig') as file:
+    # update csv
+    with open(file_dir, mode="a", newline="", encoding="utf-8-sig") as file:
         writer = csv.writer(file)
         
         for row in returned_rows:
@@ -66,23 +75,21 @@ def update_csv(data_received:dict, date):
             writer.writerow(data_row)
 
 
-# 
-def update_data(data_received:dict, date:str):
+# confirmeds
+def update_data(data_received:dict, date:str, location_id:int):
     update_mysql(data_received)
-    update_csv(data_received, date)
+    update_csv(data_received, date, location_id)
 
 
 # TEST
 if __name__ == "__main__":
 
     data_received = {
-        'date': '2023-10-28', 
-        'time': '16:15:31', 
-        'location': {'id': 7, 'name': '도장공정'}, 
-        'sensor': {'id': 500, 'name': 'DHT-21', 'type': '온습도 센서'}, 
-        'measurement': [{'value_type': 'temperature', 'value': 32, 'unit': '°C', 'cnt': 1, 'percentage': 0}, {'value_type': 'moisture', 'value': 52, 'unit': '%', 'cnt': 1, 'percentage': 0}], 
-        'network': {'name': "can't find", 'dB': 0}}
+        "date": "2023-10-28", 
+        "time": "16:15:31", 
+        "location": {"id": 7, "name": "도장공정"}, 
+        "sensor": {"id": 500, "name": "DHT-21", "type": "온습도 센서"}, 
+        "measurement": [{"value_type": "temperature", "value": 32, "unit": "°C", "cnt": 1, "percentage": 0}, {"value_type": "moisture", "value": 52, "unit": "%", "cnt": 1, "percentage": 0}], 
+        "network": {"name": "can't find", "dB": 0}}
 
-    # update_mysql(data_received)
-    # update_csv(data_received, "2023-10-28")
-    update_data(data_received, "2023-10-28")
+    update_data(data_received, "2023-10-28", 7)
