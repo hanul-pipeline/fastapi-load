@@ -16,13 +16,14 @@ def update_parquet_local(table:str, location_id:int, sensor_id:int, date:str, ti
     conn = db_conn()
 
     # read datas & create dataframe
-    query = """SELECT date, DATE_FORMAT(time, %s) as hour, DATE_FORMAT(time, %s) as time, location_id, type_name, sensor_id, measurement 
-                FROM %s
+    query = "SELECT date, DATE_FORMAT(time, %s) as hour, DATE_FORMAT(time, %s) as time, location_id, sensor_id, value_type, value, unit "
+    query += f"FROM {table} "
+    query += """
                 WHERE date = %s 
                 AND location_id = %s
                 AND sensor_id = %s
                 AND time BETWEEN %s AND %s"""
-    params = ('%H', '%H:%i:%s', table, date, location_id, sensor_id, f"{time}:00:00", f"{time+1}:00:00")
+    params = ('%H', '%H:%i:%s', date, location_id, sensor_id, f"{time}:00:00", f"{time+1}:00:00")
     df = pd.read_sql(query, conn, params=params)
 
     # close connector
@@ -46,5 +47,5 @@ def update_parquet_hdfs(location_id, sensor_id, date, hour:int):
 
 # test
 if __name__ == "__main__":
-    update_parquet_local('matrix', 1, 100, '2023-10-26', 11)
-    update_parquet_hdfs(1, 100, '2023-10-26', 11)
+    update_parquet_local('matrix', 1, 100, '2023-10-29', 21)
+    # update_parquet_hdfs(1, 100, '2023-10-26', 11)
