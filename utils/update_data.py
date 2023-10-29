@@ -31,9 +31,12 @@ def update_mysql(data_received:dict):
         value = index["value"]
         unit = index["unit"]
 
+        table = "single" if index['cnt'] == 1 else "matrix"
+
         # update table
-        QUERY = f"""
-            INSERT INTO measurement (date, time, location_id, sensor_id, value_type, value, unit)
+        QUERY = f"INSERT INTO {table} "
+        QUERY += """
+            (date, time, location_id, sensor_id, value_type, value, unit)
             VALUES
             (%s, %s, %s, %s, %s, %s, %s)
         """
@@ -60,8 +63,6 @@ def update_csv(data_received:dict, date, location_id):
     flat_data = flatten_dict(data_received)
     returned_rows = return_rows(flat_data)
     
-    print(returned_rows)
-
     # update csv
     with open(file_dir, mode="a", newline="", encoding="utf-8-sig") as file:
         writer = csv.writer(file)
