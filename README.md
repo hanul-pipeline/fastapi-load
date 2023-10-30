@@ -9,11 +9,8 @@ fastapi_load 레포지토리는 팀 '한울'에서 설계한 데이터 관리 �
 
 # Structure
 ### database: MySQL
-MySQL에 적재된 데이터는 데이터 적재 디렉토리를 분류하는 과정에서 사용되며, 추후 내부 BI(superset)에서의 데이터 조회 및 경보 로직 구현에 사용됩니다.
 <img width="1179" alt="database_mysql" src="https://github.com/hanul-pipeline/fastapi-load/assets/130134750/7b3636ad-3c99-442d-960f-991d21b412b2">
-
-### database: SQLite
-<img width="444" alt="database_sqlite" src="https://github.com/hanul-pipeline/fastapi-load/assets/130134750/2e62f2f0-a737-4a3a-b4ef-34ee9f9fdfb2">
+: MySQL에 적재된 데이터는 데이터 적재 디렉토리를 분류하는 과정에서 사용되며, 추후 내부 BI(superset)에서의 데이터 조회 및 경보 로직 구현에 사용됩니다.
 
 ### tree
 ```
@@ -50,4 +47,4 @@ pip install -y fastapi "uvicorn[standard]" mysql-connector-python pandas pyarrow
 ```
 
 # Notification
-1. 
+
