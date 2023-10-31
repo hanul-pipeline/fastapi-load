@@ -13,3 +13,13 @@ INFO:     Shutting down
 INFO:     Waiting for application shutdown.
 INFO:     Application shutdown complete.
 INFO:     Finished server process [287405]
+Traceback (most recent call last):
+  File "main.py", line 1, in <module>
+    from fastapi import FastAPI
+ModuleNotFoundError: No module named 'fastapi'
+INFO:     Started server process [653621]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+ERROR:    [Errno 98] error while attempting to bind on address ('0.0.0.0', 9000): address already in use
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
