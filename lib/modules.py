@@ -69,8 +69,7 @@ def return_rows(items):
     return item_list
 
 
-# parquet_dir = "1/100/22"
-# hdfs_mkdir(parquet_dir)
+# confirmed
 def hdfs_mkdir(parquet_dir):
     from hdfs import InsecureClient
 
@@ -88,13 +87,11 @@ def hdfs_mkdir(parquet_dir):
         print(f"Error: {str(e)}")
 
 
-# parquet_dir = "1/100/22"
-# hdfs_mkdir(parquet_dir)
+# confirmed
 def hdfs_input(parquet_dir, hdfs_dir):
     import subprocess
 
     command = f"hdfs dfs -put {data_dir}/parquet/{parquet_dir}   /hanul/measurement/{hdfs_dir}"
-
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout, stderr = process.communicate()
 

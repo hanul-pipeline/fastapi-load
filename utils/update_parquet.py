@@ -42,8 +42,7 @@ def update_parquet_local(table:str, location_id:int, sensor_id:int, date:str, ti
 def update_parquet_hdfs(location_id, sensor_id, date, hour:int):
     parquet_dir = f"location_id={location_id}/sensor_id={sensor_id}/date={date}/hour={hour}"
     hdfs_dir = f"location_id={location_id}/sensor_id={sensor_id}/date={date}"
-    print(parquet_dir)
-    print(hdfs_dir)
+    
     hdfs_mkdir(parquet_dir)
     hdfs_input(parquet_dir, hdfs_dir)
 
