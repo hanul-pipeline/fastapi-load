@@ -25,6 +25,7 @@ def update_parquet_local(table:str, location_id:int, sensor_id:int, date:str, ti
                 AND time BETWEEN %s AND %s"""
     params = ('%H', '%H:%i:%s', date, location_id, sensor_id, f"{time}:00:00", f"{time+1}:00:00")
     df = pd.read_sql(query, conn, params=params)
+    print(df)
 
     # close connector
     conn.close()
@@ -41,11 +42,13 @@ def update_parquet_local(table:str, location_id:int, sensor_id:int, date:str, ti
 def update_parquet_hdfs(location_id, sensor_id, date, hour:int):
     parquet_dir = f"location_id={location_id}/sensor_id={sensor_id}/date={date}/hour={hour}"
     hdfs_dir = f"location_id={location_id}/sensor_id={sensor_id}/date={date}"
+    print(parquet_dir)
+    print(hdfs_dir)
     hdfs_mkdir(parquet_dir)
     hdfs_input(parquet_dir, hdfs_dir)
 
 
 # test
 if __name__ == "__main__":
-    update_parquet_local('matrix', 1, 100, '2023-10-29', 21)
-    # update_parquet_hdfs(1, 100, '2023-10-26', 11)
+    # update_parquet_local('single', 7, 500, '2023-10-28', 16)
+    update_parquet_hdfs (7, 500, '2023-10-28', 16)

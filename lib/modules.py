@@ -4,7 +4,7 @@ import os
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 config_dir = os.path.join(current_dir, '../config/config.ini')
-
+data_dir = os.path.join(current_dir, '../data')
 
 # read config
 def get_config(group, req_var):
@@ -75,7 +75,7 @@ def hdfs_mkdir(parquet_dir):
     from hdfs import InsecureClient
 
     hdfs_url = 'http://localhost:9870'
-    user = 'hadoop'
+    user = 'hooniegit'
     hdfs_path = f'/hanul/measurement/{parquet_dir}'
 
     try:
@@ -93,12 +93,11 @@ def hdfs_mkdir(parquet_dir):
 def hdfs_input(parquet_dir, hdfs_dir):
     import subprocess
 
-    passwd = get_config("localhost", "passwd")
-    command = f"hdfs dfs -put /opt/data/parquet/{parquet_dir}   /hanul/measurement/{hdfs_dir}"
-    cmd = f'echo {passwd} | sudo -S docker exec fastapi-load-namenode-1 {command}'
+    command = f"hdfs dfs -put {data_dir}/parquet/{parquet_dir}   /hanul/measurement/{hdfs_dir}"
 
-    process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout, stderr = process.communicate()
 
     print(stdout)
     print(stderr)
+
