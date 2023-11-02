@@ -10,7 +10,7 @@ router = APIRouter()
 @router.get('/parquet/local/100', response_class=PlainTextResponse)
 async def update_parquet_local_100(date: str, time: int):
     location_id = 7
-    sensor_id = 100,
+    sensor_id = 100
     table_name = 'matrix'
     return update_parquet_local(table_name, location_id, sensor_id, date, time)
 

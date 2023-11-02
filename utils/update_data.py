@@ -77,7 +77,9 @@ def update_csv(data_received:dict, date, location_id):
 
 
 # confirmeds
-def update_data(data_received:dict, date:str, location_id:int):
+def update_data(data_received:dict, location_id:int):
+    date = data_received['date']
+    print(date)
     update_mysql(data_received)
     update_csv(data_received, date, location_id)
 
@@ -93,4 +95,4 @@ if __name__ == "__main__":
         "measurement": [{"value_type": "temperature", "value": 32, "unit": "°C", "cnt": 1, "percentage": 0}, {"value_type": "moisture", "value": 52, "unit": "%", "cnt": 1, "percentage": 0}], 
         "network": {"name": "can't find", "dB": 0}}
 
-    update_data(data_received, "2023-10-28", 7)
+    update_data(data_received, 7)
