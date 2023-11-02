@@ -8,7 +8,7 @@ sys.path.append(lib_dir)
 from modules import *
 
 
-# confirmed
+# confirmed: divided
 def check_mysql(database:str, sensor_id:int, date:str):
     conn = db_conn()
     cursor = conn.cursor()
@@ -31,7 +31,7 @@ def check_mysql(database:str, sensor_id:int, date:str):
 
 
 
-# confirmed
+# confirmed: divided
 def remove_mysql(database:str, sensor_id:int, date:str):
 
     try:
@@ -60,9 +60,9 @@ def remove_mysql(database:str, sensor_id:int, date:str):
 if __name__ == "__main__":
     database = "matrix"
     sensor_id = 100
-    date = "2023-11-01"
+    date = "2023-10-29"
 
     result = check_mysql(database=database, sensor_id=sensor_id, date=date)
     print(result)
 
-    # remove_mysql(database=database, sensor_id=sensor_id, date=date)
+    remove_mysql(database=database, sensor_id=sensor_id, date=date)

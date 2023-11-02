@@ -42,35 +42,6 @@ def db_conn(charset=True):
 
 
 # confirmed
-def flatten_dict(dictionary, parent_key='', sep='_'):
-    items = {}
-    
-    for k, v in dictionary.items():
-        new_key = parent_key + sep + k if parent_key else k
-        if isinstance(v, dict):
-            items.update(flatten_dict(v, new_key, sep=sep))
-        else:
-            items[new_key] = v
-
-    return items
-
-
-# confirmed
-def return_rows(items):
-    item_list = []
-
-    measurement = items["measurement"]
-    rest = items
-    del rest["measurement"]
-
-    for index in measurement:
-        item = {**rest, **index}
-        item_list.append(item)
-
-    return item_list
-
-
-# confirmed
 def hdfs_mkdir(parquet_dir):
     from hdfs import InsecureClient
 
