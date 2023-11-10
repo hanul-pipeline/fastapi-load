@@ -9,7 +9,7 @@ from modules import *
 
 
 # confirmed: divided
-def update_parquet_local(table:str, location_id:int, sensor_id:int, date:str, time:int):
+def update_parquet_local(table_name:str, location_id:int, sensor_id:int, date:str, time:int):
     import pandas as pd
     
     # open connector
@@ -17,7 +17,7 @@ def update_parquet_local(table:str, location_id:int, sensor_id:int, date:str, ti
 
     # read datas & create dataframe
     query = "SELECT date, DATE_FORMAT(time, %s) as hour, DATE_FORMAT(time, %s) as time, location_id, sensor_id, value_type, value, unit "
-    query += f"FROM {table} "
+    query += f"FROM {table_name} "
     query += """
                 WHERE date = %s 
                 AND location_id = %s
@@ -31,7 +31,7 @@ def update_parquet_local(table:str, location_id:int, sensor_id:int, date:str, ti
     conn.close()
 
     # create folder
-    DIR = f'{data_dir}/parquet'
+    DIR = f'{data_dir}/parquet/{table_name}'
     if not os.path.exists(DIR):
         os.makedirs(DIR)
     df.sort_values(['date', 'time', 'sensor_id'], inplace=True)
@@ -39,9 +39,9 @@ def update_parquet_local(table:str, location_id:int, sensor_id:int, date:str, ti
 
 
 # confirmed: divided
-def update_parquet_hdfs(location_id, sensor_id, date, hour:int):
-    parquet_dir = f"location_id={location_id}/sensor_id={sensor_id}/date={date}/hour={hour}"
-    hdfs_dir = f"location_id={location_id}/sensor_id={sensor_id}/date={date}"
+def update_parquet_hdfs(table_name, location_id, sensor_id, date, hour:int):
+    parquet_dir = f"{table_name}/location_id={location_id}/sensor_id={sensor_id}/date={date}/hour={hour}"
+    hdfs_dir = f"{table_name}/location_id={location_id}/sensor_id={sensor_id}/date={date}"
     
     hdfs_mkdir(parquet_dir)
     hdfs_input(parquet_dir, hdfs_dir)
