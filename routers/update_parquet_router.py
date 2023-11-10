@@ -53,32 +53,37 @@ async def update_parquet_local_500(date: str, time: int):
 async def update_parquet_hdfs_100(date: str, time: int):
     location_id = 7
     sensor_id = 100
-    return update_parquet_hdfs(location_id, sensor_id, date, time)
+    table_name = 'matrix'
+    return update_parquet_hdfs(table_name, location_id, sensor_id, date, time)
 
 # confirmed
 @router.get('/parquet/hdfs/200', response_class=PlainTextResponse)
 async def update_parquet_hdfs_200(date: str, time: int):
     location_id = 8
     sensor_id = 200
-    return update_parquet_hdfs(location_id, sensor_id, date, time)
+    table_name = 'matrix'
+    return update_parquet_hdfs(table_name, location_id, sensor_id, date, time)
 
 # confirmed
 @router.get('/parquet/hdfs/300', response_class=PlainTextResponse)
 async def update_parquet_hdfs_300(date: str, time: int):
     location_id = 10
     sensor_id = 300
-    return update_parquet_hdfs(location_id, sensor_id, date, time)
+    table_name = 'single'
+    return update_parquet_hdfs(table_name, location_id, sensor_id, date, time)
 
 # confirmed
 @router.get('/parquet/hdfs/400', response_class=PlainTextResponse)
 async def update_parquet_hdfs_400(date: str, time: int):
     location_id = 11
     sensor_id = 400
-    return update_parquet_hdfs(location_id, sensor_id, date, time)
+    table_name = 'single'
+    return update_parquet_hdfs(table_name, location_id, sensor_id, date, time)
 
 # confirmed
 @router.get('/parquet/hdfs/500', response_class=PlainTextResponse)
 async def update_parquet_hdfs_100(date: str, time: int):
     location_id = 7
     sensor_id = 500
-    return update_parquet_hdfs(location_id, sensor_id, date, time)
+    table_name = 'single'
+    return update_parquet_hdfs(table_name, location_id, sensor_id, date, time)

@@ -31,7 +31,7 @@ def update_parquet_local(table:str, location_id:int, sensor_id:int, date:str, ti
     conn.close()
 
     # create folder
-    DIR = f'{data_dir}/parquet'
+    DIR = f'{data_dir}/parquet/{table}'
     if not os.path.exists(DIR):
         os.makedirs(DIR)
     df.sort_values(['date', 'time', 'sensor_id'], inplace=True)
@@ -39,9 +39,9 @@ def update_parquet_local(table:str, location_id:int, sensor_id:int, date:str, ti
 
 
 # confirmed: divided
-def update_parquet_hdfs(location_id, sensor_id, date, hour:int):
-    parquet_dir = f"location_id={location_id}/sensor_id={sensor_id}/date={date}/hour={hour}"
-    hdfs_dir = f"location_id={location_id}/sensor_id={sensor_id}/date={date}"
+def update_parquet_hdfs(table_name, location_id, sensor_id, date, hour:int):
+    parquet_dir = f"{table_name}/location_id={location_id}/sensor_id={sensor_id}/date={date}/hour={hour}"
+    hdfs_dir = f"{table_name}/location_id={location_id}/sensor_id={sensor_id}/date={date}"
     
     hdfs_mkdir(parquet_dir)
     hdfs_input(parquet_dir, hdfs_dir)
