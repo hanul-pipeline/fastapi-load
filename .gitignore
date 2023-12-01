@@ -5,6 +5,7 @@
 **/*.csv
 **/*.parquet
 **/*.log
+**/*.out
 
 # pycache
 **/__pycache__/**
